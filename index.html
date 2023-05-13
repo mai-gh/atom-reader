@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>atom-test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="no-referrer">
+    <link href="data:image/x-icon" rel="icon" />
+  </head>
+  <body>
+    <script>
+      (async ()=>{
+        //const r = await fetch('./mai-gh.atom').then(r=>r.text());
+        const r = await fetch('https://github.com/mai-gh.atom').then(r=>r.text());
+        //const r = await fetch('https://github.com/mai-gh.atom', {headers: {
+        //  "method": "GET", 
+        //  "host": "https://github.com", 
+        //  'Content-Type': 'text/plain', 
+        //  "Accept": "*/*"}
+        //}).then(r=>r.text());
+        const D = new DOMParser().parseFromString(r, "text/xml");
+        for (let e of Array.from(D.getElementsByTagName('entry'))) {
+          const n = Object.assign(document.createElement('textarea'), {classList:"test", innerHTML: e.innerHTML});
+          const d = Object.assign(document.createElement('div'),{innerHTML: n.value});
+          document.body.appendChild(d)
+        }
+      })()
+    </script>
+  </body>
+</html>
